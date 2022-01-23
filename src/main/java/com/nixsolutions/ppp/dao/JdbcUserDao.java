@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcUserDao {
+public class JdbcUserDao implements UserDao{
 
     private static final Logger log = LoggerFactory.getLogger(JdbcUserDao.class);
 
@@ -17,6 +17,7 @@ public class JdbcUserDao {
     public JdbcUserDao(Connection connection) {
         this.connection = connection;
     }
+
     //+
     public void createTableUser() {
         try {

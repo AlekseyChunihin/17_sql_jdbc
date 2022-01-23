@@ -5,8 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.List;
 
-public class JdbcRoleDao {
+public class JdbcRoleDao implements RoleDao {
 
     private static final Logger log = LoggerFactory.getLogger(JdbcRoleDao.class);
 
@@ -26,7 +27,7 @@ public class JdbcRoleDao {
             statement.close();
         } catch (SQLException e) {
             log.error("failed to create : {}", e.getMessage());
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 

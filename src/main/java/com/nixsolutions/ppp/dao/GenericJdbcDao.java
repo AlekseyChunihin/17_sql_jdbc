@@ -13,10 +13,18 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Properties;
 
-public abstract class GenericJdbcDao implements Dao {
+public abstract class GenericJdbcDao<E> implements Dao {
 
     private static final Logger log = LoggerFactory.getLogger(GenericJdbcDao.class);
 
+/*TODO мне нужно создавать в GenericJdbcDao переменную connection?
+
+    private final Connection connection;
+
+    public GenericJdbcDao() {
+        this.connection = getConnection();
+    }*/
+ private final Connection connection = GenericJdbcDao.getConnection();
     public static Connection getConnection() {
         Properties props = loadProperties();
         String url = props.getProperty("url");
@@ -25,9 +33,9 @@ public abstract class GenericJdbcDao implements Dao {
         log.info("Connecting to {}", url);
         try {
             JdbcConnectionPool cp = JdbcConnectionPool.create(url, user, password);
-            Connection conn = cp.getConnection();
-            conn.setAutoCommit(false);
-            return conn;
+            Connection connection = cp.getConnection();
+            connection.setAutoCommit(false);
+            return connection;
         } catch (SQLException e) {
             log.error("Failed to connect to database {}", e.getMessage());
         }
@@ -44,5 +52,7 @@ public abstract class GenericJdbcDao implements Dao {
         return props;
     }
 
-    //TODO perenesti iz h2COnnector sozdanie connectionpool i ego vuydachy v GenericJdbcDao
+    public abstract List<E> findAll();
+
+    public abstract E findById(Long id);
 }

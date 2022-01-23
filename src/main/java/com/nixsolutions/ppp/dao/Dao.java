@@ -10,9 +10,9 @@ public interface Dao<E> {
 
     void update(E Entity);
 
-    void remove(User user);
+    void remove(E Entity);
 
-    List<User> findAll();
+    List<E> findAll();
 
-    User findById(Long id);
+    E findById(Long id);
 }
