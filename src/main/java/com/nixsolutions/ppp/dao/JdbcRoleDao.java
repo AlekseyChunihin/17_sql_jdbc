@@ -21,9 +21,10 @@ public class JdbcRoleDao implements RoleDao {
     public void createTableRole() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE roles_table ( " +
-                    "   id BIGINT Primary key AUTO_INCREMENT," +
-                    "   name VARCHAR(50) NOT NULL)");
+            statement.executeUpdate("Create table role_table" +
+                    "(role_id int PRIMARY KEY AUTO_INCREMENT," +
+                    "name VARCHAR(50) NOT NULL" +
+                    ")");
             statement.close();
         } catch (SQLException e) {
             log.error("failed to create : {}", e.getMessage());

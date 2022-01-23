@@ -1,0 +1,63 @@
+2022-01-20 15:42:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "EMAIL"; SQL statement:
+CREATE TABLE users ( 
+   id BIGINT NOT NULL, 
+   password VARCHAR(50) NOT NULL, 
+   author email(50) NOT NULL, 
+   firstName VARCHAR(50) NOT NULL, 
+   lastName email(50) NOT NULL, 
+   birthday DATE 
+); [50004-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	at org.h2.message.DbException.get(DbException.java:227)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6234)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6075)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6057)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5932)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9360)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9298)
+	at org.h2.command.Parser.parseCreate(Parser.java:6779)
+	at org.h2.command.Parser.parsePrepared(Parser.java:746)
+	at org.h2.command.Parser.parse(Parser.java:674)
+	at org.h2.command.Parser.parse(Parser.java:644)
+	at org.h2.command.Parser.prepareCommand(Parser.java:551)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:615)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:553)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:143)
+	at com.nixsolutions.ppp.Main.main(Main.java:16)
+2022-01-20 15:43:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Unknown data type: "EMAIL"; SQL statement:
+CREATE TABLE users ( 
+   id BIGINT NOT NULL, 
+   login VARCHAR(50) NOT NULL, 
+   password VARCHAR(50) NOT NULL, 
+   email VARCHAR(50) NOT NULL, 
+   firstName VARCHAR(50) NOT NULL, 
+   lastName email(50) NOT NULL, 
+   birthday DATE 
+); [50004-210]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:573)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:496)
+	at org.h2.message.DbException.get(DbException.java:227)
+	at org.h2.message.DbException.get(DbException.java:203)
+	at org.h2.command.Parser.readIfDataType1(Parser.java:6234)
+	at org.h2.command.Parser.readIfDataType(Parser.java:6075)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:6057)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:5932)
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:9360)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:9298)
+	at org.h2.command.Parser.parseCreate(Parser.java:6779)
+	at org.h2.command.Parser.parsePrepared(Parser.java:746)
+	at org.h2.command.Parser.parse(Parser.java:674)
+	at org.h2.command.Parser.parse(Parser.java:644)
+	at org.h2.command.Parser.prepareCommand(Parser.java:551)
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:615)
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:553)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1116)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:143)
+	at com.nixsolutions.ppp.Main.main(Main.java:16)

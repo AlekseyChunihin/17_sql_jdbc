@@ -22,14 +22,17 @@ public class JdbcUserDao implements UserDao{
     public void createTableUser() {
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE users_table ( " +
-                    "   id BIGINT Primary Key," +
-                    "   login VARCHAR(50) NOT NULL," +
-                    "   password VARCHAR(50) NOT NULL," +
-                    "   email VARCHAR(50) NOT NULL," +
-                    "   firstName VARCHAR(50) NOT NULL," +
-                    "   lastName VARCHAR(50) NOT NULL," +
-                    "   birthday DATE)");
+            statement.executeUpdate("CREATE TABLE user_table (" +
+                    "  user_id BIGINT PRIMARY KEY AUTO_INCREMENT," +
+                    "  login VARCHAR(100) NOT NULL UNIQUE," +
+                    "  password VARCHAR(100) NOT NULL UNIQUE," +
+                    "  email VARCHAR(100) NOT NULL UNIQUE," +
+                    "  first_name VARCHAR(50) NOT NULL," +
+                    "  last_name VARCHAR(50) NOT NULL," +
+                    "  birthday DATE," +
+                    "  role_id BIGINT," +
+                    "  foreign key (role_id) references role_table (role_id)" +
+                    ")");
             statement.close();
         } catch (SQLException e) {
             log.error("failed to create : {}", e.getMessage());
@@ -38,10 +41,9 @@ public class JdbcUserDao implements UserDao{
 
     //+
     public void create(User user) {
-        try {
+        String insertQuery = "INSERT INTO users_table (id, login, password, email, firstname, lastname, birthday) VALUES(?,?,?,?,?,?,?)";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(insertQuery)) {
             connection.setAutoCommit(false);
-            String insertQuery = "INSERT INTO users_table (id, login, password, email, firstname, lastname, birthday) VALUES(?,?,?,?,?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insertQuery);
             preparedStatement.setLong(1, user.getId());
             preparedStatement.setString(2, user.getLogin());
             preparedStatement.setString(3, user.getPassword());
@@ -52,9 +54,14 @@ public class JdbcUserDao implements UserDao{
             log.info("inserting new user with: name : {} and email: {}", user.getFirstName() + user.getLastName(), user.getEmail());
             int rows = preparedStatement.executeUpdate();
             System.out.println("rows added = " + rows);
-            preparedStatement.close();
+            //preparedStatement.close();
             connection.commit();
         } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
             log.error("failed to create : {}", e.getMessage());
             throw new RuntimeException(e);
         }

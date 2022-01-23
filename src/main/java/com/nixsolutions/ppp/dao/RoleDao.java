@@ -2,7 +2,7 @@ package com.nixsolutions.ppp.dao;
 
 import com.nixsolutions.ppp.entity.Role;
 
-public interface RoleDao extends Dao{
+public interface RoleDao /*extends Dao*/{
 
     void create(Role role);
 

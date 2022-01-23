@@ -25,6 +25,7 @@ public abstract class GenericJdbcDao<E> implements Dao {
         this.connection = getConnection();
     }*/
  private final Connection connection = GenericJdbcDao.getConnection();
+
     public static Connection getConnection() {
         Properties props = loadProperties();
         String url = props.getProperty("url");
