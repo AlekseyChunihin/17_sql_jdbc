@@ -1,6 +1,5 @@
 package com.nixsolutions.ppp.entity;
 
-//import java.util.Date;
 import java.sql.Date;
 
 public class User {
@@ -12,11 +11,22 @@ public class User {
     private String firstName;
     private String lastName;
     private Date birthday;
+    private Role role;
 
     public User() {
     }
 
-    public User(Long id, String login, String password, String email, String firstName, String lastName, Date birthday) {
+    public User( String login, String password, String email, String firstName, String lastName, Date birthday, Role role) {
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthday = birthday;
+        this.role = role;
+    }
+
+    public User(Long id, String login, String password, String email, String firstName, String lastName, Date birthday, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -24,6 +34,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
+        this.role = role;
     }
 
     public Long getId() {
@@ -80,5 +91,27 @@ public class User {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthday=" + birthday +
+                ", role=" + role +
+                '}';
     }
 }

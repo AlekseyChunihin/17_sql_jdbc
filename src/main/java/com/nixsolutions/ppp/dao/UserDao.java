@@ -4,7 +4,7 @@ import com.nixsolutions.ppp.entity.User;
 
 import java.util.List;
 
-public interface UserDao /*extends Dao*/{
+public interface UserDao {
 
     void create(User user);
 

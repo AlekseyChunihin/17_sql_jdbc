@@ -4,15 +4,15 @@ import com.nixsolutions.ppp.entity.User;
 
 import java.util.List;
 
-public interface Dao<E> {
+public interface Dao {
 
-    void create(E Entity);
+    void create(Object Entity);
 
-    void update(E Entity);
+    void update(Object Entity);
 
-    void remove(E Entity);
+    void remove(Object Entity);
 
-    List<E> findAll();
+    List<Object> findAll();
 
-    E findById(Long id);
+    Object findById(Long id);
 }

@@ -1,0 +1,5 @@
+role_table:
+  - role_id: 1
+    name: "role1"
+  - role_id: 2
+    name: "role2"

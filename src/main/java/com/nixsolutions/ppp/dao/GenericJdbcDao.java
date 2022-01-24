@@ -1,6 +1,5 @@
 package com.nixsolutions.ppp.dao;
 
-import com.nixsolutions.ppp.entity.User;
 import com.nixsolutions.ppp.h2Connector.H2Connector;
 import org.h2.jdbcx.JdbcConnectionPool;
 import org.slf4j.Logger;
@@ -10,37 +9,31 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Properties;
 
-public abstract class GenericJdbcDao<E> implements Dao {
+public abstract class GenericJdbcDao {
 
     private static final Logger log = LoggerFactory.getLogger(GenericJdbcDao.class);
 
-/*TODO мне нужно создавать в GenericJdbcDao переменную connection?
-
-    private final Connection connection;
+    private final JdbcConnectionPool jdbcConnectionPool;
 
     public GenericJdbcDao() {
-        this.connection = getConnection();
-    }*/
- private final Connection connection = GenericJdbcDao.getConnection();
-
-    public static Connection getConnection() {
         Properties props = loadProperties();
         String url = props.getProperty("url");
         String user = props.getProperty("user");
         String password = props.getProperty("password");
-        log.info("Connecting to {}", url);
+        jdbcConnectionPool = JdbcConnectionPool.create(url, user, password);
+    }
+
+    public Connection getConnection() {
         try {
-            JdbcConnectionPool cp = JdbcConnectionPool.create(url, user, password);
-            Connection connection = cp.getConnection();
+            Connection connection = jdbcConnectionPool.getConnection();
             connection.setAutoCommit(false);
             return connection;
         } catch (SQLException e) {
             log.error("Failed to connect to database {}", e.getMessage());
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     private static Properties loadProperties() {
@@ -52,8 +45,4 @@ public abstract class GenericJdbcDao<E> implements Dao {
         }
         return props;
     }
-
-    public abstract List<E> findAll();
-
-    public abstract E findById(Long id);
 }
